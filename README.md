@@ -1,48 +1,36 @@
-Symfony Demo Application
-========================
-
-The "Symfony Demo Application" is a reference application created to show how
-to develop applications following the [Symfony Best Practices][1].
-
-Requirements
-------------
-
   * PHP 7.1.3 or higher;
   * PDO-SQLite PHP extension enabled;
-  * and the [usual Symfony application requirements][2].
+  * MySql 5.7
+  
+  Przy pomocy aplikacji będzie można:
+- korzystać, obstawiać mecze bundesligi i zbierać punkty za obstawienia - tablica wyników użytkowników
+- mecze i wyniki pobierane przy pomocy REST API (FootballData)
+- tworzyć wydarzenia sportowe(publiczne, bądź prywatne), zapraszać znajomych do tych wydarzeń, wyszukiwać wydarzenia oraz można będzie  dołączać do wydarzeń
+- komentować wydarzenia
+- lista moich wydarzeń
+- sprawdzanie przesyłek Poczty Polskiej (SOAP API)
 
-Installation
-------------
+Co zrobione?
+-Komenda do pobierania meczy ligi niemieckiej do bazy danych z footballdata (rest)
+-Komenda do aktualizowania w bazie wyników zakończonych spotkań
+-Obstawianie spotkań wg. kolejek począwczy od najbliższej możliwej
+-Funkcja naliczająca zalogowanemu użytkownikowi punkty za jego obstawienia
+-Ranking użytkowników wg punktów
+-Historia zakończonych typów - spotkanie, obstawienie i ile punktów otrzymał użytkownik
+- Tworzenie wydarzen
+- Wyszukiwanie wydarzen
+- dolaczanie do wydarzenia
+-Zmniejsza się ilosc miejsc w danym wydarzeniu, gdy ktoś dołączy
+- Nie mozna sie zapisac do wydarzenia w ktorym sie bierze juz udzial
+- Sprawdzanie wysylek z poczty Polskiej (soap)
+- lista wydarzeń w których bierze się udział,
+- lista wydarzeń w których się bralo udział
 
-```bash
-$ composer create-project symfony/symfony-demo
-```
+Co do zrobienia?
+- uprawnienia użytkowniów, nie wszędzie są
+- walidacja formularzy
+- baza miast i wyszukwianie wydarzeń po miastach wczytywanych z bazy
+- wygląd aplikacji
+- zapraszanie na wydarzenia
+- obstawianie i zmiana obstawienia w typerze do 4 godzin przed meczem
 
-Usage
------
-
-There's no need to configure anything to run the application. Just execute this
-command to run the built-in web server and access the application in your
-browser at <http://localhost:8000>:
-
-```bash
-$ cd symfony-demo/
-$ php bin/console server:run
-```
-
-Alternatively, you can [configure a web server][3] like Nginx or Apache to run
-the application.
-
-Tests
------
-
-Execute this command to run tests:
-
-```bash
-$ cd symfony-demo/
-$ ./bin/phpunit
-```
-
-[1]: https://symfony.com/doc/current/best_practices/index.html
-[2]: https://symfony.com/doc/current/reference/requirements.html
-[3]: https://symfony.com/doc/current/cookbook/configuration/web_server_configuration.html
