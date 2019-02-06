@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Historia typów{% endblock %}
+
+{% block body %}
+
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Gospodarz</th>
+            <th>Gość</th>
+            <th>Data</th>
+            <th>Wynik</th>
+            <th>Twój typ</th>
+            <th>Zdobyte punkty</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for type in types %}
+            <tr>
+                <td>{{ type.getEventMatch().homeTeam }}</td>
+                <td>{{ type.getEventMatch().awayTeam }}</td>
+                <td>{{ type.getEventMatch().date|date("Y-m-d H-i-s") }}</td>
+                <td>{{ type.getHomeScore() }} - {{ type.awayScore }}</td>
+                <td>{{ type.getEventMatch().homeTeamScore }} - {{ type.getEventMatch().awayTeamScore }}</td>
+                <td>{{ type.score }} </td>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+{% endblock %}

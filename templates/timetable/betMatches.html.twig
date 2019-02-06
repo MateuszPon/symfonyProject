@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bieżąca kolejka{% endblock %}
+
+{% block body %}
+    {% for message in app.flashes('saveBets') %}
+        <div class="flash-notice">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <form action="{{ path('saveBetMatches') }}" method="post">
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Nr kolejki</th>
+                <th>Data</th>
+                <th>Gospodarz</th>
+                <th>Gość</th>
+                <th>Typ</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% set foo2 = 0 %}
+            {% for match in matches %}
+                <tr>
+                    <td>{{ match.matchday }}</td>
+                    <td>{{ match.date|date("Y-m-d H-i-s") }}</td>
+                    <td>{{ match.homeTeam }}</td>
+                    <td>{{ match.awayTeam }}</td>
+                    {#tutaj do value dac jak juz bylo obstawione wyniki wsadzic a jak!#}
+                    {% if types != null %}
+                        {% for type in types %}
+
+                            {% if match.id == type.eventMatch.id %}
+                                <td><input type="number" name="homeTeamA {{ match.id }}" value="{{ type.homeScore }}" required> - <input
+                                            type="number" name="awayTeamA {{ match.id }}" value="{{ type.awayScore }}" required></td>
+                                {% set foo2 =1 %}
+                                {# {% else %}
+                                     <td><input type="number" name="homeTeamA {{ match.id }}" required> - <input type="number"
+                                                                                                        name="awayTeamA {{ match.id }}" required>
+                                     </td>#}
+                            {% endif %}
+                        {% endfor %}
+                        {% if foo2 ==0 %}
+                            <td><input type="number" name="homeTeamA {{ match.id }}" required> - <input type="number" name="awayTeamA {{ match.id }}" required>
+                            </td>
+                        {% else %}
+                            {% set foo2 =0 %}
+                        {% endif %}
+                    {% else %}
+                        <td><input type="number" name="homeTeamA {{ match.id }}" required> - <input type="number"
+                                                                                                    name="awayTeamA {{ match.id }}" required>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+
+
+    {#<table class="table">#}
+        {#<thead>#}
+        {#<tr>#}
+            {#<th>Nr kolejki</th>#}
+            {#<th>Data</th>#}
+            {#<th>Gospodarz</th>#}
+            {#<th>Gość</th>#}
+            {#<th>Typ </th>#}
+        {#</tr>#}
+        {#</thead>#}
+        {#<tbody>#}
+        {#{% for match in matches  %}#}
+
+        {#<tr>#}
+            {#<td>{{ match.matchday }}</td>#}
+            {#<td>{{ match.date|date("Y-m-d H-i-s") }}</td>#}
+            {#<td>{{ match.homeTeam }}</td>#}
+            {#<td>{{ match.awayTeam}}</td>#}
+            {#tutaj do value dac jak juz bylo obstawione wyniki wsadzic a jak!#}
+
+            {#{% for type in types %}#}
+                {#{% if type.eventMatch.id==match.id %}#}
+            {#<td><input type="number" name="homeTeamTypes {{ match.id }}" value="{{ type.homeScore }}"> - <input type="number" name="awayTeamTypes {{ match.id }}"  value="{{ type.awayScore }}"></td>#}
+                {#{% else %}#}
+                    {#<td><input type="number" name="homeTeam {{ match.id }}" > - <input type="number" name="awayTeam {{ match.id }}" ></td>#}
+                {#{% endif %}#}
+            {#{% endfor %}#}
+            {#{% endfor %}#}
+        {#</tr>#}
+        {#</tbody>#}
+    {#</table>#}
+        <input type="submit">
+    </form>
+{% endblock %}

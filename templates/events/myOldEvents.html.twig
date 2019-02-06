@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My events{% endblock %}
+
+{% block body %}
+    <h1>My old events</h1>
+    <a href="{{ path('my_all_events') }}">
+        <button class="btn-success">All events</button>
+    </a>
+    <a href="{{ path('my_events') }}">
+        <button class="btn-success">Only new events</button>
+    </a>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Date</th>
+            <th>City</th>
+            <th>Address</th>
+            <th>Quantity</th>
+            <th>Private_status</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for event in events %}
+            <tr>
+                <td>{{ event.id }}</td>
+                <td>{{ event.date ? event.date|date('Y-m-d') : '' }}</td>
+                <td>{{ event.city }}</td>
+                <td>{{ event.address }}</td>
+                <td>{{ event.quantity }}</td>
+                <td>{{ event.privateStatus ? 'Yes' : 'No' }}</td>
+                <td>
+
+                    <a href="{{ path('events_show', {'id': event.id}) }}">show</a>
+                </td>
+            </tr>
+
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

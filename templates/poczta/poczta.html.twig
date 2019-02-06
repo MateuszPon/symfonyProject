@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Poczta Polska - śledzenie{% endblock %}
+
+{% block body %}
+    {% for message in app.flashes('notice') %}
+        <div class="flash-notice">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <div class="col-lg-12">
+    <h1>Poczta Polska - Śledź swoje paczki</h1>
+    </div>
+    {{ form_start(form) }}
+    <div class="col-lg-6">
+
+        <strong>{% trans %}Number{% endtrans %}</strong>
+    {{ form_widget(form.number, {'attr': {'class': 'number_poczta'}}) }}
+        <button class="btn-success">Wyszukaj</button>
+    </div>
+        {{ form_end(form) }}
+
+
+    {% if checkNumber == true %}
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Date</th>
+            <th>City</th>
+            <th>Zdarzenie</th>
+        </tr>
+
+        </thead>
+
+        <tbody>
+        {% if zdarzenia is iterable %}
+        {% for zdarzenie in zdarzenia %}
+
+            <tr>
+                <td>
+                    {{ loop.index }}
+                </td>
+                <td>
+                    {{ zdarzenie.czas }}
+                </td>
+                <td>
+                    {{ zdarzenie.jednostka.nazwa }}
+                </td>
+                <td>
+                    {{ zdarzenie.nazwa }}
+                </td>
+            </tr>
+        {% endfor %}
+        {% else %}
+            <tr>
+                <td>
+
+                </td>
+                <td>
+                    {{ zdarzenia.czas }}
+                </td>
+                <td>
+                    {{ zdarzenia.jednostka.nazwa }}
+                </td>
+                <td>
+                    {{ zdarzenia.nazwa }}
+                </td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+{% endif %}
+    {% endblock %}

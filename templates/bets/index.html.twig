@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tablica wyników{% endblock %}
+
+{% block body %}
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Miejsce</th>
+            <th>Nazwa użytkownika</th>
+            <th>Ilość punktów</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in listOfUsers %}
+            <tr>
+                <td> {{ loop.index }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.TotalScore }}</td>
+
+            </tr>
+{% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
